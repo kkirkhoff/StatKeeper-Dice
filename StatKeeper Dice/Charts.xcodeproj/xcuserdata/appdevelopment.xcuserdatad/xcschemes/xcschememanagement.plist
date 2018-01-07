@@ -4,18 +4,15 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>StatKeeper Dice.xcscheme</key>
+		<key>Charts.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
 		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>44B8DD8F1FE5722C006169B5</key>
+		<key>ChartsTests.xcscheme_^#shared#^_</key>
 		<dict>
-			<key>primary</key>
-			<true/>
+			<key>orderHint</key>
+			<integer>1</integer>
 		</dict>
 	</dict>
 </dict>
