@@ -63,6 +63,7 @@
 
 /* Begin PBXFileReference section */
 		44836A6C1FF17E6D00F731DC /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
+		449A2B0F201E25BD00F5F9BB /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		44B8DD901FE5722C006169B5 /* StatKeeper Dice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StatKeeper Dice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		44B8DD931FE5722D006169B5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		44B8DD951FE5722D006169B5 /* RollViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RollViewController.swift; sourceTree = "<group>"; };
@@ -443,6 +444,7 @@
 		44B8DDC81FE58494006169B5 /* StatKeeper_Dice.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				449A2B0F201E25BD00F5F9BB /* Model 2.xcdatamodel */,
 				44B8DDC91FE58494006169B5 /* Model.xcdatamodel */,
 			);
 			currentVersion = 44B8DDC91FE58494006169B5 /* Model.xcdatamodel */;

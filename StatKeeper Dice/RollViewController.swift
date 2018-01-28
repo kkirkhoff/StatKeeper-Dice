@@ -25,10 +25,10 @@ class RollViewController: UIViewController
     @IBOutlet weak var blackBorder: UIButton!
 
     // User settings
-    var game:Int   = 0     // 0 - Strat-O-Matic     1 - APBA
-    var sport:Int  = 0     // 0 - Baseball          1 - Football    2 - Basketball      3 - Hockey
-    var dice:Int   = 0     // 0 - Numeric           1 - Image
-    var show:Int = 0       // 0 - Add dice          1 - Show individual values
+    var game:Int  = 0     // 0 - Strat-O-Matic     1 - APBA
+    var sport:Int = 0     // 0 - Baseball          1 - Football    2 - Basketball      3 - Hockey
+    var dice:Int  = 0     // 0 - Numeric           1 - Image
+    var show:Int  = 0     // 0 - Add dice          1 - Show individual values
 
     var ATap = ARoll()
     
@@ -202,7 +202,7 @@ class RollViewController: UIViewController
         zeroTheNumbers()
         saveTheData()
     }
-    
+
 
     // MARK: - Helper Functions
     func roll_die(_ limit:UInt32) -> Int

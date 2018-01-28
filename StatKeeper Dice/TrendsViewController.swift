@@ -82,7 +82,7 @@ class TrendsViewController: UIViewController
         filterTotal = (sender.selectedSegmentIndex * 10) - 1
         
         SeparateTaps()
-        
+
         whiteChartUpdate()
         redChartUpdate()
         splitChartUpdate()
@@ -164,11 +164,11 @@ class TrendsViewController: UIViewController
         {
             splitArray[i] = 0
         }
-                
+        
         for tap in tapsMaster
         {
             
-        // Red
+            // Red
             if (tap.red_die_1 > 0)
             {
                 if (filterTotal == -1 || (filterTotal > 0 && red1Array[0] <= filterTotal))
@@ -194,7 +194,7 @@ class TrendsViewController: UIViewController
                 }
             }
             
-        // White
+            // White
             if (tap.white_die_1 > 0)
             {
                 if (filterTotal == -1 || filterTotal > 0 && white1Array[0] <= filterTotal)
@@ -220,7 +220,7 @@ class TrendsViewController: UIViewController
                 }
             }
             
-        // Split
+            // Split
             if (tap.split_die > 0)
             {
                 if (filterTotal == -1 || filterTotal > 0 && splitArray[0] <= filterTotal)
@@ -230,7 +230,7 @@ class TrendsViewController: UIViewController
                 }
             }
             
-        // Black
+            // Black
             if (tap.black_die > 0)
             {
                 if (filterTotal == -1 || filterTotal > 0 && blackArray[0] <= filterTotal)
@@ -241,7 +241,7 @@ class TrendsViewController: UIViewController
             }
         }
     }
-    
+
     
     func processUserDefaults()
     {
@@ -339,25 +339,32 @@ class TrendsViewController: UIViewController
         }
         let dataSet = BarChartDataSet(values: dataEntries, label: label)
 
-        let data = BarChartData(dataSets: [dataSet])
+        let data        = BarChartData(dataSets: [dataSet])
         whiteChart.data = data
-        whiteChart.chartDescription?.text = ""
         whiteChart.data?.setDrawValues(false)
-        whiteChart.backgroundColor = UIColor.black
-        whiteChart.doubleTapToZoomEnabled = false
-        whiteChart.highlightPerTapEnabled = false
-        whiteChart.highlightPerDragEnabled = false
         
-        whiteChart.legend.textColor = UIColor.white
-        whiteChart.xAxis.labelTextColor = UIColor.white
-        whiteChart.xAxis.gridColor = UIColor.white
-        whiteChart.xAxis.labelPosition = .bottom
-        whiteChart.xAxis.axisLineColor = UIColor.white
-        whiteChart.rightAxis.gridColor = UIColor.white
-        whiteChart.leftAxis.axisLineColor = UIColor.white
-        whiteChart.leftAxis.labelTextColor = UIColor.white
-        whiteChart.leftAxis.gridColor = UIColor.white
+        whiteChart.chartDescription?.text      = ""
+        whiteChart.backgroundColor             = UIColor.black
+        whiteChart.doubleTapToZoomEnabled      = false
+        whiteChart.highlightPerTapEnabled      = false
+        whiteChart.highlightPerDragEnabled     = false
         
+        whiteChart.legend.textColor            = UIColor.white
+        
+        whiteChart.xAxis.labelTextColor        = UIColor.white
+        whiteChart.xAxis.gridColor             = UIColor.white
+        whiteChart.xAxis.labelPosition         = .bottom
+        whiteChart.xAxis.axisLineColor         = UIColor.white
+
+        whiteChart.rightAxis.gridColor         = UIColor.white
+        
+        whiteChart.leftAxis.axisLineColor        = UIColor.white
+        whiteChart.leftAxis.labelTextColor       = UIColor.white
+        whiteChart.leftAxis.drawGridLinesEnabled = false
+        whiteChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
+        whiteChart.leftAxis.granularity          = 1.0
+        whiteChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
+
         // All other additions to this function go here
         dataSet.colors = [UIColor.white]
 
@@ -395,26 +402,31 @@ class TrendsViewController: UIViewController
             dataEntries.append(dataEntry)
         }
         
-        let dataSet = BarChartDataSet(values: dataEntries, label: label)
-        let data = BarChartData(dataSets: [dataSet])
+        let dataSet   = BarChartDataSet(values: dataEntries, label: label)
+        let data      = BarChartData(dataSets: [dataSet])
         redChart.data = data
-        redChart.chartDescription?.text = ""
-        redChart.xAxis.labelPosition = .bottom
         redChart.data?.setDrawValues(false)
-        redChart.backgroundColor = UIColor.black
-        redChart.doubleTapToZoomEnabled = false
-        redChart.highlightPerTapEnabled = false
-        redChart.highlightPerDragEnabled = false
+        redChart.backgroundColor             = UIColor.black
+        redChart.doubleTapToZoomEnabled      = false
+        redChart.highlightPerTapEnabled      = false
+        redChart.highlightPerDragEnabled     = false
+        redChart.chartDescription?.text      = ""
 
-        redChart.legend.textColor = UIColor.white
-        redChart.xAxis.labelTextColor = UIColor.white
-        redChart.xAxis.gridColor = UIColor.white
-        redChart.xAxis.labelPosition = .bottom
-        redChart.xAxis.axisLineColor = UIColor.white
-        redChart.rightAxis.gridColor = UIColor.white
-        redChart.leftAxis.axisLineColor = UIColor.white
-        redChart.leftAxis.labelTextColor = UIColor.white
-        redChart.leftAxis.gridColor = UIColor.white
+        redChart.legend.textColor            = UIColor.white
+        
+        redChart.xAxis.labelTextColor        = UIColor.white
+        redChart.xAxis.gridColor             = UIColor.white
+        redChart.xAxis.labelPosition         = .bottom
+        redChart.xAxis.axisLineColor         = UIColor.white
+        
+        redChart.rightAxis.gridColor         = UIColor.white
+        
+        redChart.leftAxis.axisLineColor        = UIColor.white
+        redChart.leftAxis.labelTextColor       = UIColor.white
+        redChart.leftAxis.drawGridLinesEnabled = false
+        redChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
+        redChart.leftAxis.granularity          = 1.0
+        redChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
 
         // All other additions to this function go here
         dataSet.colors = [UIColor.red]
@@ -433,26 +445,32 @@ class TrendsViewController: UIViewController
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(splitArray[i]))
             dataEntries.append(dataEntry)
         }
-        let dataSet = BarChartDataSet(values: dataEntries, label: label)
-        let data = BarChartData(dataSets: [dataSet])
+        let dataSet     = BarChartDataSet(values: dataEntries, label: label)
+        let data        = BarChartData(dataSets: [dataSet])
         splitChart.data = data
-        splitChart.chartDescription?.text = ""
-        splitChart.xAxis.labelPosition = .bottom
         splitChart.data?.setDrawValues(false)
-        splitChart.backgroundColor = UIColor.black
-        splitChart.doubleTapToZoomEnabled = false
-        splitChart.highlightPerTapEnabled = false
-        splitChart.highlightPerDragEnabled = false
+        
+        splitChart.backgroundColor             = UIColor.black
+        splitChart.doubleTapToZoomEnabled      = false
+        splitChart.highlightPerTapEnabled      = false
+        splitChart.highlightPerDragEnabled     = false
+        splitChart.chartDescription?.text      = ""
 
-        splitChart.legend.textColor = UIColor.white
-        splitChart.xAxis.labelTextColor = UIColor.white
-        splitChart.xAxis.gridColor = UIColor.white
-        splitChart.xAxis.labelPosition = .bottom
-        splitChart.xAxis.axisLineColor = UIColor.white
-        splitChart.rightAxis.gridColor = UIColor.white
-        splitChart.leftAxis.axisLineColor = UIColor.white
-        splitChart.leftAxis.labelTextColor = UIColor.white
-        splitChart.leftAxis.gridColor = UIColor.white
+        splitChart.legend.textColor            = UIColor.white
+        
+        splitChart.xAxis.labelTextColor        = UIColor.white
+        splitChart.xAxis.gridColor             = UIColor.white
+        splitChart.xAxis.labelPosition         = .bottom
+        splitChart.xAxis.axisLineColor         = UIColor.white
+        
+        splitChart.rightAxis.gridColor         = UIColor.white
+        
+        splitChart.leftAxis.axisLineColor        = UIColor.white
+        splitChart.leftAxis.labelTextColor       = UIColor.white
+        splitChart.leftAxis.drawGridLinesEnabled = false
+        splitChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
+        splitChart.leftAxis.granularity          = 1.0
+        splitChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
 
         // All other additions to this function go here
         dataSet.colors = [UIColor.green]
@@ -471,26 +489,32 @@ class TrendsViewController: UIViewController
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(blackArray[i]))
             dataEntries.append(dataEntry)
         }
-        let dataSet = BarChartDataSet(values: dataEntries, label: label)
-        let data = BarChartData(dataSets: [dataSet])
+        let dataSet     = BarChartDataSet(values: dataEntries, label: label)
+        let data        = BarChartData(dataSets: [dataSet])
         blackChart.data = data
-        blackChart.chartDescription?.text = ""
-        blackChart.xAxis.labelPosition = .bottom
         blackChart.data?.setDrawValues(false)
-        blackChart.backgroundColor = UIColor.black
-        blackChart.doubleTapToZoomEnabled = false
-        blackChart.highlightPerTapEnabled = false
-        blackChart.highlightPerDragEnabled = false
+        
+        blackChart.backgroundColor             = UIColor.black
+        blackChart.doubleTapToZoomEnabled      = false
+        blackChart.highlightPerTapEnabled      = false
+        blackChart.highlightPerDragEnabled     = false
+        blackChart.chartDescription?.text      = ""
 
-        blackChart.legend.textColor = UIColor.white
-        blackChart.xAxis.labelTextColor = UIColor.white
-        blackChart.xAxis.gridColor = UIColor.white
-        blackChart.xAxis.labelPosition = .bottom
-        blackChart.xAxis.axisLineColor = UIColor.white
-        blackChart.rightAxis.gridColor = UIColor.white
-        blackChart.leftAxis.axisLineColor = UIColor.white
-        blackChart.leftAxis.labelTextColor = UIColor.white
-        blackChart.leftAxis.gridColor = UIColor.white
+        blackChart.legend.textColor            = UIColor.white
+        
+        blackChart.xAxis.labelTextColor        = UIColor.white
+        blackChart.xAxis.gridColor             = UIColor.white
+        blackChart.xAxis.labelPosition         = .bottom
+        blackChart.xAxis.axisLineColor         = UIColor.white
+        
+        blackChart.rightAxis.gridColor         = UIColor.white
+        
+        blackChart.leftAxis.axisLineColor        = UIColor.white
+        blackChart.leftAxis.labelTextColor       = UIColor.white
+        blackChart.leftAxis.drawGridLinesEnabled = false
+        blackChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
+        blackChart.leftAxis.granularity          = 1.0
+        blackChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
 
         // All other additions to this function go here
         dataSet.colors = [UIColor.white]
