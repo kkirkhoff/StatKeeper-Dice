@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		444ABF32240C0FDF00BD034E /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 444ABF2F240C0FC500BD034E /* Charts.framework */; };
+		444ABF33240C0FDF00BD034E /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 444ABF2F240C0FC500BD034E /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44836A6D1FF17E6D00F731DC /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44836A6C1FF17E6D00F731DC /* Utils.swift */; };
 		44B8DD941FE5722D006169B5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8DD931FE5722D006169B5 /* AppDelegate.swift */; };
 		44B8DD961FE5722D006169B5 /* RollViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8DD951FE5722D006169B5 /* RollViewController.swift */; };
@@ -17,44 +19,35 @@
 		44B8DDCA1FE58494006169B5 /* StatKeeper_Dice.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 44B8DDC81FE58494006169B5 /* StatKeeper_Dice.xcdatamodeld */; };
 		44B8DDCC1FE6AF8E006169B5 /* TrendsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8DDCB1FE6AF8E006169B5 /* TrendsViewController.swift */; };
 		44B8DDCE1FE6AFED006169B5 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44B8DDCD1FE6AFED006169B5 /* SettingsViewController.swift */; };
-		44CCE3741FF694D5002A0B58 /* Charts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCE3711FF694B5002A0B58 /* Charts.framework */; };
-		44CCE3751FF694D5002A0B58 /* Charts.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44CCE3711FF694B5002A0B58 /* Charts.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		44D16B821FE72DF700432345 /* ARoll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D16B811FE72DF700432345 /* ARoll.swift */; };
 		44D5FE241FE9D0DF00F8A9A6 /* CustomTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44D5FE231FE9D0DF00F8A9A6 /* CustomTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		44CCE3701FF694B5002A0B58 /* PBXContainerItemProxy */ = {
+		444ABF2E240C0FC500BD034E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */;
+			containerPortal = 444ABF29240C0FC400BD034E /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 65AD9E95D9ED4DC0BD73A743;
 			remoteInfo = Charts;
 		};
-		44CCE3721FF694B5002A0B58 /* PBXContainerItemProxy */ = {
+		444ABF30240C0FC500BD034E /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */;
+			containerPortal = 444ABF29240C0FC400BD034E /* Charts.xcodeproj */;
 			proxyType = 2;
 			remoteGlobalIDString = 1CBBC58C6CE1EBEE9852CE41;
 			remoteInfo = ChartsTests;
 		};
-		44CCE3761FF694D5002A0B58 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A58A4ED274A941CA248EA921;
-			remoteInfo = Charts;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		44CCE3781FF694D5002A0B58 /* Embed Frameworks */ = {
+		44D9E91C22AD511900A91044 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44CCE3751FF694D5002A0B58 /* Charts.framework in Embed Frameworks */,
+				444ABF33240C0FDF00BD034E /* Charts.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -62,6 +55,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		444626AE2091F9AE0092C5AD /* Charts.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Charts.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		444ABF29240C0FC400BD034E /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-3.4/Charts.xcodeproj"; sourceTree = "<group>"; };
 		44836A6C1FF17E6D00F731DC /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		449A2B0F201E25BD00F5F9BB /* Model 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Model 2.xcdatamodel"; sourceTree = "<group>"; };
 		44B8DD901FE5722C006169B5 /* StatKeeper Dice.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "StatKeeper Dice.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -75,7 +70,6 @@
 		44B8DDC91FE58494006169B5 /* Model.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Model.xcdatamodel; sourceTree = "<group>"; };
 		44B8DDCB1FE6AF8E006169B5 /* TrendsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendsViewController.swift; sourceTree = "<group>"; };
 		44B8DDCD1FE6AFED006169B5 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Charts.xcodeproj; path = "../../../Charts-master/Charts.xcodeproj"; sourceTree = "<group>"; };
 		44D16B811FE72DF700432345 /* ARoll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARoll.swift; sourceTree = "<group>"; };
 		44D5FE231FE9D0DF00F8A9A6 /* CustomTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -85,19 +79,37 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				44CCE3741FF694D5002A0B58 /* Charts.framework in Frameworks */,
+				444ABF32240C0FDF00BD034E /* Charts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		444626AD2091F9AE0092C5AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				444626AE2091F9AE0092C5AD /* Charts.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		444ABF2A240C0FC400BD034E /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				444ABF2F240C0FC500BD034E /* Charts.framework */,
+				444ABF31240C0FC500BD034E /* ChartsTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		44B8DD871FE5722C006169B5 = {
 			isa = PBXGroup;
 			children = (
-				44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */,
+				444ABF29240C0FC400BD034E /* Charts.xcodeproj */,
 				44B8DD921FE5722C006169B5 /* StatKeeper Dice */,
 				44B8DD911FE5722C006169B5 /* Products */,
+				444626AD2091F9AE0092C5AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -129,15 +141,6 @@
 			path = "StatKeeper Dice";
 			sourceTree = "<group>";
 		};
-		44CCE36C1FF694B5002A0B58 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				44CCE3711FF694B5002A0B58 /* Charts.framework */,
-				44CCE3731FF694B5002A0B58 /* ChartsTests.xctest */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -148,12 +151,11 @@
 				44B8DD8C1FE5722C006169B5 /* Sources */,
 				44B8DD8D1FE5722C006169B5 /* Frameworks */,
 				44B8DD8E1FE5722C006169B5 /* Resources */,
-				44CCE3781FF694D5002A0B58 /* Embed Frameworks */,
+				44D9E91C22AD511900A91044 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				44CCE3771FF694D5002A0B58 /* PBXTargetDependency */,
 			);
 			name = "StatKeeper Dice";
 			productName = "StatKeeper Dice";
@@ -167,11 +169,12 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0920;
-				LastUpgradeCheck = 0920;
+				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = "Kerbink Software";
 				TargetAttributes = {
 					44B8DD8F1FE5722C006169B5 = {
 						CreatedOnToolsVersion = 9.2;
+						LastSwiftMigration = 1020;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -189,8 +192,8 @@
 			projectDirPath = "";
 			projectReferences = (
 				{
-					ProductGroup = 44CCE36C1FF694B5002A0B58 /* Products */;
-					ProjectRef = 44CCE36B1FF694B5002A0B58 /* Charts.xcodeproj */;
+					ProductGroup = 444ABF2A240C0FC400BD034E /* Products */;
+					ProjectRef = 444ABF29240C0FC400BD034E /* Charts.xcodeproj */;
 				},
 			);
 			projectRoot = "";
@@ -201,18 +204,18 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
-		44CCE3711FF694B5002A0B58 /* Charts.framework */ = {
+		444ABF2F240C0FC500BD034E /* Charts.framework */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.framework;
 			path = Charts.framework;
-			remoteRef = 44CCE3701FF694B5002A0B58 /* PBXContainerItemProxy */;
+			remoteRef = 444ABF2E240C0FC500BD034E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
-		44CCE3731FF694B5002A0B58 /* ChartsTests.xctest */ = {
+		444ABF31240C0FC500BD034E /* ChartsTests.xctest */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.cfbundle;
 			path = ChartsTests.xctest;
-			remoteRef = 44CCE3721FF694B5002A0B58 /* PBXContainerItemProxy */;
+			remoteRef = 444ABF30240C0FC500BD034E /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 /* End PBXReferenceProxy section */
@@ -249,14 +252,6 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
-/* Begin PBXTargetDependency section */
-		44CCE3771FF694D5002A0B58 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = Charts;
-			targetProxy = 44CCE3761FF694D5002A0B58 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
-
 /* Begin PBXVariantGroup section */
 		44B8DD991FE5722D006169B5 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
@@ -291,6 +286,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -298,6 +294,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -348,6 +345,7 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
@@ -355,6 +353,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -389,14 +388,18 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 13;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = VHYVYEQN52;
 				INFOPLIST_FILE = "StatKeeper Dice/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kerbink-Software.StatKeeper-Dice";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -406,13 +409,17 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 13;
 				DEVELOPMENT_TEAM = VHYVYEQN52;
 				INFOPLIST_FILE = "StatKeeper Dice/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				MARKETING_VERSION = 1.6;
 				PRODUCT_BUNDLE_IDENTIFIER = "Kerbink-Software.StatKeeper-Dice";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -447,7 +454,7 @@
 				449A2B0F201E25BD00F5F9BB /* Model 2.xcdatamodel */,
 				44B8DDC91FE58494006169B5 /* Model.xcdatamodel */,
 			);
-			currentVersion = 44B8DDC91FE58494006169B5 /* Model.xcdatamodel */;
+			currentVersion = 449A2B0F201E25BD00F5F9BB /* Model 2.xcdatamodel */;
 			path = StatKeeper_Dice.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

@@ -23,13 +23,37 @@ class RollViewController: UIViewController
     @IBOutlet weak var splitBorder: UIButton!
     @IBOutlet weak var blackButton: UIButton!
     @IBOutlet weak var blackBorder: UIButton!
-
+    @IBOutlet weak var gameBorderTop: NSLayoutConstraint!
+    @IBOutlet weak var gameButtonTop: NSLayoutConstraint!
+    @IBOutlet weak var redDie1Top: NSLayoutConstraint!
+    @IBOutlet weak var redDie2Top: NSLayoutConstraint!
+    @IBOutlet weak var whiteDie2Top: NSLayoutConstraint!
+    @IBOutlet weak var splitBorderTop: NSLayoutConstraint!
+    @IBOutlet weak var splitButtonTop: NSLayoutConstraint!
+    @IBOutlet weak var splitDieTop: NSLayoutConstraint!
+    @IBOutlet weak var blackBorderTop: NSLayoutConstraint!
+    @IBOutlet weak var blackButtonTop: NSLayoutConstraint!
+    @IBOutlet weak var blackDieTop: NSLayoutConstraint!
+    @IBOutlet weak var clearBorderTop: NSLayoutConstraint!
+    @IBOutlet weak var clearButtonTop: NSLayoutConstraint!
+    
     // User settings
-    var game:Int  = 0     // 0 - Strat-O-Matic     1 - APBA
-    var sport:Int = 0     // 0 - Baseball          1 - Football    2 - Basketball      3 - Hockey
-    var dice:Int  = 0     // 0 - Numeric           1 - Image
-    var show:Int  = 0     // 0 - Add dice          1 - Show individual values
+    var game:Int       = 0   // 0 - Strat-O-Matic     1 - APBA        2 - BallPark        3 - Dynasty League
+    var sport:Int      = 0   // 0 - Baseball          1 - Football    2 - Basketball      3 - Hockey
+    var show:Int       = 0   // 0 - Add dice          1 - Show individual values
+    var values:Int     = 0   // 0 - Consecutive       1 - Not Consecutive
+    var split:Int      = 0   // 0 - Hide Split button 1 - Show Split button
+    // (Split setting is only available when using Strat-O-Matic Basketball)
 
+    // For use when user doesn't want the same consecutive value
+    var prev_red1      = 0
+    var prev_red2      = 0
+    var prev_white1    = 0
+    var prev_white2    = 0
+    var prev_black     = 0
+    var prev_split     = 0
+    var prev_red_value = 0
+    
     var ATap = ARoll()
     
     var tapsCD = [NSManagedObject]()                // CoreData array of Tap
@@ -101,15 +125,31 @@ class RollViewController: UIViewController
     // MARK: - Button Actions
     @IBAction func splitButton(_ sender: UIButton)
     {
-        let split_die = roll_die(20)
+        var split_die = prev_split
+        
+        // If we don't want the same consecutive number...
+        if values == 1
+        {
+            while (split_die == prev_split)
+            {
+                split_die = roll_die(20  )
+            }
+        }
+        else
+        {
+            split_die = roll_die(20)
+        }
         splitLabel.text = String(split_die)
         
         ATap.red_die_1   = 0
         ATap.red_die_2   = 0
         ATap.white_die_1 = 0
         ATap.white_die_2 = 0
+        ATap.black_die   = 0
         ATap.split_die   = split_die
         ATap.clear       = false
+        
+        prev_split = split_die
         
         saveTheData()
     }
@@ -117,8 +157,21 @@ class RollViewController: UIViewController
     
     @IBAction func blackButton(_ sender: UIButton)
     {
-        let black_die = roll_die(6)
+        var black_die = prev_black
         
+        // If we don't want the same consecutive number...
+        if values == 1
+        {
+            while (black_die == prev_black)
+            {
+                black_die = roll_die(6)
+            }
+        }
+        else
+        {
+            black_die = roll_die(6)
+        }
+
         blackLabel.text = convertBlackDie(black_die: black_die)
         
         ATap.red_die_1   = 0
@@ -129,27 +182,67 @@ class RollViewController: UIViewController
         ATap.split_die   = 0
         ATap.clear       = false
         
+        prev_black = black_die
+        
         saveTheData()
     }
 
     @IBAction func gameButton(_ sender: UIButton)
     {
-        // Roll all the dice
-        let white_die_1 = roll_die(6)
-        var white_die_2 = roll_die(6)
-        var red_die_1   = roll_die(6)       // Make red dice variables because we will zero them for hockey and basketball
-        var red_die_2   = roll_die(6)
+        var white_die_1 = prev_white1
+        var white_die_2 = prev_white2
+        var red_die_1   = prev_red1
+        var red_die_2   = prev_red2
+        var red_value   = red_die_1 + red_die_2
+        var white_value = white_die_1 + white_die_2
 
-        // Add the two white and 2 red (just in case)
-        let white_value = white_die_1 + white_die_2
-        let red_value   = red_die_1 + red_die_2
-
+        
+        // BallPark
+        if game == 2
+        {
+            if values == 1
+            {
+                while (red_die_1 == prev_red1)
+                {
+                    red_die_1 = roll_die(50)
+                }
+            }
+            else
+            {
+                red_die_1 = roll_die(50)
+            }
+            
+            red_die_2         = 0
+            white_die_1       = 0
+            white_die_2       = 0
+            redDie1Label.text = String(red_die_1)
+        }
+        
+        
         // Strat-O-Matic
         if game == 0
         {
             // Baseball or football, and add the red dice...
             if (sport == 0 || sport == 1)
             {
+                if values == 1
+                {
+                    while (red_value == prev_red_value && white_die_1 == prev_white1)
+                    {
+                        red_die_1   = roll_die(6)
+                        red_die_2   = roll_die(6)
+                        white_die_1 = roll_die(6)
+                        red_value   = red_die_1 + red_die_2
+                    }
+                }
+                else
+                {
+                    red_die_1   = roll_die(6)
+                    red_die_2   = roll_die(6)
+                    white_die_1 = roll_die(6)
+                    red_value   = red_die_1 + red_die_2
+                }
+
                 white_die_2         = 0
                 whiteDie1Label.text = String(white_die_1)
                 redDie1Label.text   = String(red_value)
@@ -164,6 +257,22 @@ class RollViewController: UIViewController
             // Basketball or hockey, and show each white die...
             if (sport == 2 || sport == 3)
             {
+                if values == 1
+                {
+                    while (white_die_1 == prev_white1 && white_die_2 == prev_white2)
+                    {
+                        white_die_1 = roll_die(6)
+                        white_die_2 = roll_die(6)
+                        white_value = white_die_1 + white_die_2
+                    }
+                }
+                else
+                {
+                    white_die_1 = roll_die(6)
+                    white_die_2 = roll_die(6)
+                    white_value = white_die_1 + white_die_2
+                }
+
                 // Red dice not used
                 red_die_1 = 0
                 red_die_2 = 0
@@ -180,6 +289,20 @@ class RollViewController: UIViewController
         // APBA
         if game == 1
         {
+            if values == 1
+            {
+                while (white_die_1 == prev_white1 && red_die_1 == prev_red1)
+                {
+                    white_die_1 = roll_die(6)
+                    red_die_1   = roll_die(6)
+                }
+            }
+            else
+            {
+                white_die_1 = roll_die(6)
+                red_die_1   = roll_die(6)
+            }
+            
             white_die_2         = 0
             red_die_2           = 0
             redDie1Label.text   = String(red_die_1)
@@ -194,6 +317,12 @@ class RollViewController: UIViewController
         ATap.black_die   = 0
         ATap.clear       = false
 
+        prev_red1      = red_die_1
+        prev_red2      = red_die_2
+        prev_white1    = white_die_1
+        prev_white2    = white_die_2
+        prev_red_value = red_value
+        
         saveTheData()
     }
     
@@ -253,19 +382,35 @@ class RollViewController: UIViewController
         {
             sport = defaults.value(forKey: "Sport") as! Int
         }
-        if (defaults.object(forKey: "Dice") != nil)
+        if (defaults.object(forKey: "Values") != nil)
         {
-            dice = defaults.value(forKey: "Dice") as! Int
+            values = defaults.value(forKey: "Values") as! Int
         }
         if (defaults.object(forKey: "Show") != nil)
         {
             show = defaults.value(forKey: "Show") as! Int
+        }        
+        if (defaults.object(forKey: "Split") != nil)
+        {
+            split = defaults.value(forKey: "Split") as! Int
         }
-        
+
     }
 
     func setupScreen()
     {
+        let constraint1Border:CGFloat = 90.0
+        let constraint1Button:CGFloat = 95.0
+        let constraint1Data:CGFloat   = 97.0
+        let constraint2Border:CGFloat = 200.0
+        let constraint2Button:CGFloat = 205.0
+        let constraint2Data:CGFloat   = 213.0
+        let constraint3Border:CGFloat = 310.0
+        let constraint3Button:CGFloat = 315.0
+        let constraint3Data:CGFloat   = 323.0
+        let constraint4Border:CGFloat = 420.0
+        let constraint4Button:CGFloat = 425.0
+
         var gameType = ""
         var sportType = ""
         
@@ -300,6 +445,18 @@ class RollViewController: UIViewController
                 {
                     redDie2Label.isHidden = false
                 }
+                
+                // Set constraints for R, G, C
+                gameBorderTop.constant  = constraint1Border
+                gameButtonTop.constant  = constraint1Button
+                redDie1Top.constant     = constraint1Data
+                redDie2Top.constant     = constraint1Data
+                whiteDie2Top.constant   = constraint1Data
+                splitBorderTop.constant = constraint2Border
+                splitButtonTop.constant = constraint2Button
+                splitDieTop.constant    = constraint2Data
+                clearBorderTop.constant = constraint3Border
+                clearButtonTop.constant = constraint3Button
             }
             
             if sport == 1
@@ -314,6 +471,17 @@ class RollViewController: UIViewController
                 {
                     redDie2Label.isHidden = false
                 }
+                
+                // Set constraints for R, B, C
+                gameBorderTop.constant  = constraint1Border
+                gameButtonTop.constant  = constraint1Button
+                redDie1Top.constant     = constraint1Data
+                redDie2Top.constant     = constraint1Data
+                blackBorderTop.constant = constraint2Border
+                blackButtonTop.constant = constraint2Button
+                blackDieTop.constant    = constraint2Data
+                clearBorderTop.constant = constraint3Border
+                clearButtonTop.constant = constraint3Button
             }
             if sport == 2
             {
@@ -323,11 +491,41 @@ class RollViewController: UIViewController
                 blackLabel.isHidden     = false
                 blackButton.isHidden    = false
                 blackBorder.isHidden    = false
+                
                 if (show == 1)                // Do we show two dice?
                 {
                     whiteDie2Label.isHidden = false
                 }
                 
+                // Set constraints for R, B, C or R, B, G, C (if Split setting is on)
+                gameBorderTop.constant  = constraint1Border
+                gameButtonTop.constant  = constraint1Button
+                redDie1Top.constant     = constraint1Data
+                redDie2Top.constant     = constraint1Data
+                blackBorderTop.constant = constraint2Border
+                blackButtonTop.constant = constraint2Button
+                blackDieTop.constant    = constraint2Data
+
+                // If we did NOT choose (in the Settings) to use a Split die...
+                if split == 0
+                {
+                    clearBorderTop.constant = constraint3Border
+                    clearButtonTop.constant = constraint3Button
+                }
+
+                // If we DID choose (in the Settings) to use a Split die...
+                if split == 1
+                {
+                    splitLabel.isHidden     = false
+                    splitButton.isHidden    = false
+                    splitBorder.isHidden    = false
+                    splitButton.isEnabled   = true
+                    splitBorderTop.constant = constraint3Border
+                    splitButtonTop.constant = constraint3Button
+                    splitDieTop.constant    = constraint3Data
+                    clearBorderTop.constant = constraint4Border
+                    clearButtonTop.constant = constraint4Button
+                }
             }
             
             if sport == 3
@@ -338,10 +536,19 @@ class RollViewController: UIViewController
                 {
                     whiteDie2Label.isHidden = false
                 }
+                
+                // Set constraints for R, C
+                gameBorderTop.constant  = constraint1Border
+                gameButtonTop.constant  = constraint1Button
+                redDie1Top.constant     = constraint1Data
+                redDie2Top.constant     = constraint1Data
+                clearBorderTop.constant = constraint2Border
+                clearButtonTop.constant = constraint2Button
+
             }
         }
 
-// APBA
+        // APBA
         if (game == 1)
         {
             gameType = "APBA"
@@ -362,10 +569,88 @@ class RollViewController: UIViewController
             {
                 sportType = "Hockey"
             }
-
+            
             whiteDie1Label.isHidden = false
             redDie1Label.isHidden   = false
+            
+            // Set constraints for R, C
+            gameBorderTop.constant  = constraint1Border
+            gameButtonTop.constant  = constraint1Button
+            redDie1Top.constant     = constraint1Data
+            redDie2Top.constant     = constraint1Data
+            clearBorderTop.constant = constraint2Border
+            clearButtonTop.constant = constraint2Button
+        }
+
+        // BallPark
+        if (game == 2)
+        {
+            gameType = "BallPark"
+            
+            if sport == 0
+            {
+                sportType = "Baseball"
             }
+            if sport == 1
+            {
+                sportType = "Football"
+            }
+            if sport == 2
+            {
+                sportType = "Basketball"
+            }
+            if sport == 3
+            {
+                sportType = "Hockey"
+            }
+            
+            whiteDie1Label.isHidden = true
+            redDie1Label.isHidden   = false
+            
+            // Set constraints for R, C
+            gameBorderTop.constant  = constraint1Border
+            gameButtonTop.constant  = constraint1Button
+            redDie1Top.constant     = constraint1Data
+            redDie2Top.constant     = constraint1Data
+            clearBorderTop.constant = constraint2Border
+            clearButtonTop.constant = constraint2Button
+
+        }
+
+        // Dynasty League
+        if (game == 3)
+        {
+            gameType = "Dynasty League"
+            
+            if sport == 0
+            {
+                sportType = "Baseball"
+            }
+            if sport == 1
+            {
+                sportType = "Football"
+            }
+            if sport == 2
+            {
+                sportType = "Basketball"
+            }
+            if sport == 3
+            {
+                sportType = "Hockey"
+            }
+            
+            whiteDie1Label.isHidden = true
+            redDie1Label.isHidden   = false
+            
+            // Set constraints for R, C
+            gameBorderTop.constant  = constraint1Border
+            gameButtonTop.constant  = constraint1Button
+            redDie1Top.constant     = constraint1Data
+            redDie2Top.constant     = constraint1Data
+            clearBorderTop.constant = constraint2Border
+            clearButtonTop.constant = constraint2Button
+
+        }
 
         gameTypeLabel.text = gameType + " : " + sportType
     }

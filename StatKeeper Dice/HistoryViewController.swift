@@ -215,28 +215,38 @@ class HistoryViewController: UIViewController, UITableViewDataSource
         cell.red2Label.isHidden   = true
         cell.blackLabel.isHidden  = true
 
+// Ball Park Baseball
+        if tapsTable[indexPath.row].white_die_1 == 0 && tapsTable[indexPath.row].red_die_1 > 0
+        {
+            // One white and red dice will always be shown. Red values may be combined into one value
+            let red                   = String(tapsTable[indexPath.row].red_die_1)
+            cell.white1Label.isHidden = true
+            cell.red1Label.isHidden   = false
+            cell.red1Label.text       = red
+        }
+
 // Strat-O-Matic Baseball, Football, and APBA all sports
         if tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].red_die_1 > 0
         {
             // One white and red dice will always be shown. Red values may be combined into one value
-            let white = String(tapsTable[indexPath.row].white_die_1)
-            cell.white1Label.isHidden = false
-            cell.red1Label.isHidden   = false
-
+            let white                   = String(tapsTable[indexPath.row].white_die_1)
+            cell.white1Label.isHidden   = false
+            cell.red1Label.isHidden     = false
+            
             if show == 1
             {
-                let red1  = String(tapsTable[indexPath.row].red_die_1)
-                let red2  = String(tapsTable[indexPath.row].red_die_2)
-                cell.red2Label.isHidden   = false
-                cell.white1Label.text     = white
-                cell.red1Label.text       = red1
-                cell.red2Label.text       = red2
+                let red1                = String(tapsTable[indexPath.row].red_die_1)
+                let red2                = String(tapsTable[indexPath.row].red_die_2)
+                cell.red2Label.isHidden = false
+                cell.white1Label.text   = white
+                cell.red1Label.text     = red1
+                cell.red2Label.text     = red2
             }
             else
             {
-                let red   = String(tapsTable[indexPath.row].red_die_1 + tapsTable[indexPath.row].red_die_2)
-                cell.white1Label.text     = white
-                cell.red1Label.text       = red
+                let red                 = String(tapsTable[indexPath.row].red_die_1 + tapsTable[indexPath.row].red_die_2)
+                cell.white1Label.text   = white
+                cell.red1Label.text     = red
             }
         }
 
@@ -266,7 +276,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource
 // Strat-O-Matic Baseball (Split roll)
         if tapsTable[indexPath.row].split_die > 0
         {
-            let split  = String(tapsTable[indexPath.row].split_die)
+            let split                = String(tapsTable[indexPath.row].split_die)
             cell.splitLabel.text     = split
             cell.splitLabel.isHidden = false
         }

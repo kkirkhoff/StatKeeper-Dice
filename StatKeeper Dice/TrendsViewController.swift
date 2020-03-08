@@ -10,7 +10,6 @@ import UIKit
 import CoreData
 import Charts
 
-
 class TrendsViewController: UIViewController
 {
     @IBOutlet weak var whiteChart: BarChartView!
@@ -18,14 +17,19 @@ class TrendsViewController: UIViewController
     @IBOutlet weak var splitChart: BarChartView!
     @IBOutlet weak var blackChart: BarChartView!
     @IBOutlet weak var filterValue: UISegmentedControl!
+    @IBOutlet weak var whiteChartTop: NSLayoutConstraint!
+    @IBOutlet weak var redChartTop: NSLayoutConstraint!
+    @IBOutlet weak var blackChartTop: NSLayoutConstraint!
+    @IBOutlet weak var splitChartTop: NSLayoutConstraint!
 
     var tapsMaster = [ARoll]()                      // Array of all taps
 
     // User settings
-    var game:Int  = 0     // 0 - Strat-O-Matic     1 - APBA
+    var game:Int  = 0     // 0 - Strat-O-Matic     1 - APBA        2 - BallPark        3 - Dynasty League
     var sport:Int = 0     // 0 - Baseball          1 - Football    2 - Basketball      3 - Hockey
+    var split:Int = 0     // 0 - Hide Split button 1 - Show Split button
 
-    var red1Array   = [Int](repeating: 0, count: 7 )  // Die 1-6
+    var red1Array   = [Int](repeating: 0, count: 51)  // Die 1-50
     var red2Array   = [Int](repeating: 0, count: 7 )  // Die 1-6
     var redTArray   = [Int](repeating: 0, count: 13)  // 2 Dice 2-12
     var white1Array = [Int](repeating: 0, count: 7 )  // Die 1-6
@@ -151,9 +155,12 @@ class TrendsViewController: UIViewController
         {
             white1Array[i] = 0
             white2Array[i] = 0
-            red1Array[i]   = 0
             red2Array[i]   = 0
             blackArray[i]  = 0
+        }
+        for i in 0...50
+        {
+            red1Array[i]   = 0
         }
         for i in 0...12
         {
@@ -167,7 +174,6 @@ class TrendsViewController: UIViewController
         
         for tap in tapsMaster
         {
-            
             // Red
             if (tap.red_die_1 > 0)
             {
@@ -256,12 +262,19 @@ class TrendsViewController: UIViewController
         {
             sport = defaults.value(forKey: "Sport") as! Int
         }
-        
+        if (defaults.object(forKey: "Split") != nil)
+        {
+            split = defaults.value(forKey: "Split") as! Int
+        }
+
     }
 
     func setupScreen()
     {
-        
+        let constraint1:CGFloat = 28.0
+        let constraint2:CGFloat = 160.0
+        let constraint3:CGFloat = 292.0
+
         // Turn everything off
         whiteChart.isHidden = true
         redChart.isHidden   = true
@@ -276,32 +289,59 @@ class TrendsViewController: UIViewController
                 whiteChart.isHidden  = false
                 redChart.isHidden    = false
                 splitChart.isHidden  = false
+                whiteChartTop.constant = constraint1
+                redChartTop.constant   = constraint2
+                splitChartTop.constant = constraint3
             }
             
             if sport == 1
             {
-                whiteChart.isHidden  = false
-                redChart.isHidden    = false
-                blackChart.isHidden  = false
+                whiteChart.isHidden    = false
+                redChart.isHidden      = false
+                blackChart.isHidden    = false
+                whiteChartTop.constant = constraint1
+                redChartTop.constant   = constraint2
+                blackChartTop.constant = constraint3
             }
             if sport == 2
             {
-                whiteChart.isHidden = false
-                blackChart.isHidden = false
+                whiteChart.isHidden    = false
+                blackChart.isHidden    = false
+                whiteChartTop.constant = constraint1
+                blackChartTop.constant = constraint2
+
+                if (split == 1)
+                {
+                    splitChart.isHidden    = false
+                    splitChartTop.constant = constraint3
+                }
+                    
             }
             
             if sport == 3
             {
-                whiteChart.isHidden = false
+                whiteChart.isHidden    = false
+                whiteChartTop.constant = constraint1
             }
         }
         
         // APBA
         if (game == 1)
         {
-            whiteChart.isHidden = false
-            redChart.isHidden   = false
+            whiteChart.isHidden    = false
+            redChart.isHidden      = false
+            whiteChartTop.constant = constraint1
+            redChartTop.constant   = constraint2
         }
+
+        
+        // BallPark & Dynasty League
+        if (game == 2 && game == 3)
+        {
+            redChart.isHidden   = false
+            redChartTop.constant = constraint1
+        }
+
     }
 
     
@@ -337,7 +377,7 @@ class TrendsViewController: UIViewController
             }
             dataEntries.append(dataEntry)
         }
-        let dataSet = BarChartDataSet(values: dataEntries, label: label)
+        let dataSet = BarChartDataSet(entries: dataEntries, label: label)
 
         let data        = BarChartData(dataSets: [dataSet])
         whiteChart.data = data
@@ -377,7 +417,7 @@ class TrendsViewController: UIViewController
         var dataEntries = [ChartDataEntry]()
         var upperLimit  = 6
         var lowerLimit  = 1
-        var label       = "Red (" + String(white1Array[0]) + ")"
+        var label       = "Red (" + String(red1Array[0]) + ")"
 
         if (game == 0 && sport == 0 || game == 0 && sport == 1)
         {
@@ -386,6 +426,12 @@ class TrendsViewController: UIViewController
             upperLimit = 12
         }
 
+        if (game == 2)
+        {
+            lowerLimit = 1
+            upperLimit = 50
+        }
+        
         for i in lowerLimit...upperLimit
         {
             var dataEntry: BarChartDataEntry
@@ -402,7 +448,7 @@ class TrendsViewController: UIViewController
             dataEntries.append(dataEntry)
         }
         
-        let dataSet   = BarChartDataSet(values: dataEntries, label: label)
+        let dataSet   = BarChartDataSet(entries: dataEntries, label: label)
         let data      = BarChartData(dataSets: [dataSet])
         redChart.data = data
         redChart.data?.setDrawValues(false)
@@ -445,7 +491,7 @@ class TrendsViewController: UIViewController
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(splitArray[i]))
             dataEntries.append(dataEntry)
         }
-        let dataSet     = BarChartDataSet(values: dataEntries, label: label)
+        let dataSet     = BarChartDataSet(entries: dataEntries, label: label)
         let data        = BarChartData(dataSets: [dataSet])
         splitChart.data = data
         splitChart.data?.setDrawValues(false)
@@ -489,7 +535,7 @@ class TrendsViewController: UIViewController
             let dataEntry = BarChartDataEntry(x: Double(i), y: Double(blackArray[i]))
             dataEntries.append(dataEntry)
         }
-        let dataSet     = BarChartDataSet(values: dataEntries, label: label)
+        let dataSet     = BarChartDataSet(entries: dataEntries, label: label)
         let data        = BarChartData(dataSets: [dataSet])
         blackChart.data = data
         blackChart.data?.setDrawValues(false)
