@@ -19,7 +19,7 @@ func convertBlackDie(black_die: Int)->String
         case 5...6:
             return "D"
         default:
-            return "Invalid"
+            return ""
     }
 }
 

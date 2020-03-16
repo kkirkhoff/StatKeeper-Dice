@@ -17,6 +17,7 @@ class CustomTableViewCell: UITableViewCell
     @IBOutlet weak var splitLabel: UILabel!
     @IBOutlet weak var clearLabel: UILabel!
     @IBOutlet weak var blackLabel: UILabel!
+    @IBOutlet weak var blueLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     

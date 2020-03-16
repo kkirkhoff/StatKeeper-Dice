@@ -88,6 +88,7 @@ class HistoryViewController: UIViewController, UITableViewDataSource
             tap.red_die_2   = item.value(forKey: "red_die_2") as! Int
             tap.white_die_1 = item.value(forKey: "white_die_1") as! Int
             tap.white_die_2 = item.value(forKey: "white_die_2") as! Int
+            tap.blue_die    = item.value(forKey: "blue_die") as! Int
             tap.split_die   = item.value(forKey: "split_die") as! Int
             tap.black_die   = item.value(forKey: "black_die") as! Int
             tap.clear       = item.value(forKey: "clear") as! Bool
@@ -206,94 +207,216 @@ class HistoryViewController: UIViewController, UITableViewDataSource
         // view manages the creation and reusing of table view cells.
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellReuseIdentifier") as! CustomTableViewCell
 
-        // Hide everything, for starters
-        cell.splitLabel.isHidden  = true
-        cell.clearLabel.isHidden  = true
+        
         cell.white1Label.isHidden = true
-        cell.white2Label.isHidden = true
-        cell.red1Label.isHidden   = true
-        cell.red2Label.isHidden   = true
-        cell.blackLabel.isHidden  = true
-
-// Ball Park Baseball
-        if tapsTable[indexPath.row].white_die_1 == 0 && tapsTable[indexPath.row].red_die_1 > 0
+        if tapsTable[indexPath.row].white_die_1 > 0
         {
-            // One white and red dice will always be shown. Red values may be combined into one value
-            let red                   = String(tapsTable[indexPath.row].red_die_1)
-            cell.white1Label.isHidden = true
-            cell.red1Label.isHidden   = false
-            cell.red1Label.text       = red
-        }
+            let value = String(tapsTable[indexPath.row].white_die_1)
 
-// Strat-O-Matic Baseball, Football, and APBA all sports
-        if tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].red_die_1 > 0
-        {
-            // One white and red dice will always be shown. Red values may be combined into one value
-            let white                   = String(tapsTable[indexPath.row].white_die_1)
             cell.white1Label.isHidden   = false
-            cell.red1Label.isHidden     = false
-            
-            if show == 1
-            {
-                let red1                = String(tapsTable[indexPath.row].red_die_1)
-                let red2                = String(tapsTable[indexPath.row].red_die_2)
-                cell.red2Label.isHidden = false
-                cell.white1Label.text   = white
-                cell.red1Label.text     = red1
-                cell.red2Label.text     = red2
-            }
-            else
-            {
-                let red                 = String(tapsTable[indexPath.row].red_die_1 + tapsTable[indexPath.row].red_die_2)
-                cell.white1Label.text   = white
-                cell.red1Label.text     = red
-            }
+            cell.white1Label.text       = value
+        }
+        
+        cell.white2Label.isHidden = true
+        if tapsTable[indexPath.row].white_die_2 > 0
+        {
+            let value = String(tapsTable[indexPath.row].white_die_2)
+
+            cell.white2Label.isHidden   = false
+            cell.white2Label.text       = value
+        }
+        
+        cell.red1Label.isHidden = true
+        if tapsTable[indexPath.row].red_die_1 > 0
+        {
+            let value = String(tapsTable[indexPath.row].red_die_1)
+
+            cell.red1Label.isHidden   = false
+            cell.red1Label.text       = value
+        }
+        
+        cell.red2Label.isHidden = true
+        if tapsTable[indexPath.row].red_die_2 > 0
+        {
+            let value = String(tapsTable[indexPath.row].red_die_2)
+
+            cell.red2Label.isHidden   = false
+            cell.red2Label.text       = value
         }
 
-// Strat-O-Matic Hockey and Basketball
-        // If two white dice were rolled and no black die, it's Strat-O-Matic Hockey
-        if tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].white_die_2 > 0
-        {
-            let white1  = String(tapsTable[indexPath.row].white_die_1)
-            let white2  = String(tapsTable[indexPath.row].white_die_2)
-            
-            // Display individual dice
-            if show == 1
-            {
-                cell.white1Label.isHidden = false
-                cell.white2Label.isHidden = false
-                cell.white1Label.text     = white1
-                cell.white2Label.text     = white2
-            }
-            else
-            {
-                let white_sum  = String(tapsTable[indexPath.row].white_die_1 + tapsTable[indexPath.row].white_die_2)
-                cell.white1Label.isHidden = false
-                cell.white1Label.text     = white_sum
-            }
-        }
-        
-// Strat-O-Matic Baseball (Split roll)
-        if tapsTable[indexPath.row].split_die > 0
-        {
-            let split                = String(tapsTable[indexPath.row].split_die)
-            cell.splitLabel.text     = split
-            cell.splitLabel.isHidden = false
-        }
-        
-// Strat-O-Matic Football (Black roll)
+        cell.blackLabel.isHidden = true
         if tapsTable[indexPath.row].black_die > 0
         {
-            cell.blackLabel.isHidden = false
-            cell.blackLabel.text     = convertBlackDie(black_die: tapsTable[indexPath.row].black_die)
+            cell.blackLabel.isHidden   = false
+            cell.blackLabel.text       = convertBlackDie(black_die: tapsTable[indexPath.row].black_die)
+        }
+        
+        cell.blueLabel.isHidden = true
+        if tapsTable[indexPath.row].blue_die > 0
+        {
+            let value = String(tapsTable[indexPath.row].blue_die)
+
+            cell.blueLabel.isHidden   = false
+            cell.blueLabel.text       = value
         }
 
-// Clear
+        cell.clearLabel.isHidden = true
         if tapsTable[indexPath.row].clear == true
         {
-            cell.clearLabel.isHidden  = false
-            cell.clearLabel.text      = "Clear"
+            cell.clearLabel.isHidden   = false
+            cell.clearLabel.text       = "Clear"
         }
+
+        cell.splitLabel.isHidden = true
+        if tapsTable[indexPath.row].split_die > 0
+        {
+            let value = String(tapsTable[indexPath.row].split_die)
+
+            cell.splitLabel.isHidden   = false
+            cell.splitLabel.text       = value
+        }
+
+        // Combine the red dice
+        if show == 0 && (tapsTable[indexPath.row].red_die_1 > 0 && tapsTable[indexPath.row].red_die_2 > 0)
+        {
+            let value = String(tapsTable[indexPath.row].red_die_1 + tapsTable[indexPath.row].red_die_2)
+            
+            cell.red1Label.text     = value
+            cell.red2Label.isHidden = true
+        }
+        
+        // Combine the white dice
+        if show == 0 && (tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].white_die_2 > 0)
+        {
+            let value = String(tapsTable[indexPath.row].white_die_1 + tapsTable[indexPath.row].white_die_2)
+            
+            cell.white1Label.text     = value
+            cell.white2Label.isHidden = true
+        }
+
+        
+        
+//        // Hide everything, for starters
+//        cell.splitLabel.isHidden  = true
+//        cell.clearLabel.isHidden  = true
+//        cell.white1Label.isHidden = true
+//        cell.white2Label.isHidden = true
+//        cell.red1Label.isHidden   = true
+//        cell.red2Label.isHidden   = true
+//        cell.blackLabel.isHidden  = true
+//        cell.blueLabel.isHidden   = true
+//
+//        // Dynasty League Baseball
+//        if tapsTable[indexPath.row].blue_die > 0
+//        {
+//            // Show Red, White, and Blue
+//            let red                   = String(tapsTable[indexPath.row].red_die_1)
+//            let white                 = String(tapsTable[indexPath.row].white_die_1)
+//            let blue                  = String(tapsTable[indexPath.row].blue_die)
+//            if tapsTable[indexPath.row].red_die_1 > 0
+//            {
+//                cell.red1Label.isHidden = false
+//            }
+//            if tapsTable[indexPath.row].white_die_1 > 0
+//            {
+//                cell.white1Label.isHidden = false
+//            }
+//            cell.red1Label.text       = red
+//            cell.white1Label.text     = white
+//            cell.blueLabel.isHidden   = false
+//            cell.blueLabel.text       = blue
+//        }
+//
+//
+//        // Ball Park Baseball
+//        if tapsTable[indexPath.row].white_die_1 == 0 && tapsTable[indexPath.row].red_die_1 > 0 && tapsTable[indexPath.row].blue_die == 0
+//        {
+//            // One white and red dice will always be shown. Red values may be combined into one value
+//            let red                   = String(tapsTable[indexPath.row].red_die_1)
+//            cell.white1Label.isHidden = true
+//            cell.red1Label.isHidden   = false
+//            cell.red1Label.text       = red
+//        }
+//
+//// Strat-O-Matic Baseball, Football, and APBA all sports
+//        if tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].red_die_1 > 0
+//        {
+//            // One white and red dice will always be shown. Red values may be combined into one value
+//            let white                   = String(tapsTable[indexPath.row].white_die_1)
+//            cell.white1Label.isHidden   = false
+//            cell.red1Label.isHidden     = false
+//
+//            if show == 1
+//            {
+//                let red1                = String(tapsTable[indexPath.row].red_die_1)
+//                let red2                = String(tapsTable[indexPath.row].red_die_2)
+//
+//                // Since this section is for Strat and APBA, make sure I don't display the Red 2 die
+//                // if it's APBA (ie red die 2 is 0)
+//                if tapsTable[indexPath.row].red_die_2 == 0
+//                {
+//                    cell.red2Label.isHidden = true
+//                }
+//                else
+//                {
+//                    cell.red2Label.isHidden = false
+//                }
+//                cell.white1Label.text   = white
+//                cell.red1Label.text     = red1
+//                cell.red2Label.text     = red2
+//            }
+//            else
+//            {
+//                let red                 = String(tapsTable[indexPath.row].red_die_1 + tapsTable[indexPath.row].red_die_2)
+//                cell.white1Label.text   = white
+//                cell.red1Label.text     = red
+//            }
+//        }
+//
+//// Strat-O-Matic Hockey and Basketball
+//        // If two white dice were rolled and no black die, it's Strat-O-Matic Hockey
+//        if tapsTable[indexPath.row].white_die_1 > 0 && tapsTable[indexPath.row].white_die_2 > 0
+//        {
+//            let white1  = String(tapsTable[indexPath.row].white_die_1)
+//            let white2  = String(tapsTable[indexPath.row].white_die_2)
+//
+//            // Display individual dice
+//            if show == 1
+//            {
+//                cell.white1Label.isHidden = false
+//                cell.white2Label.isHidden = false
+//                cell.white1Label.text     = white1
+//                cell.white2Label.text     = white2
+//            }
+//            else
+//            {
+//                let white_sum  = String(tapsTable[indexPath.row].white_die_1 + tapsTable[indexPath.row].white_die_2)
+//                cell.white1Label.isHidden = false
+//                cell.white1Label.text     = white_sum
+//            }
+//        }
+//
+//// Strat-O-Matic Baseball (Split roll)
+//        if tapsTable[indexPath.row].split_die > 0
+//        {
+//            let split                = String(tapsTable[indexPath.row].split_die)
+//            cell.splitLabel.text     = split
+//            cell.splitLabel.isHidden = false
+//        }
+//
+//// Strat-O-Matic Football (Black roll)
+//        if tapsTable[indexPath.row].black_die > 0
+//        {
+//            cell.blackLabel.isHidden = false
+//            cell.blackLabel.text     = convertBlackDie(black_die: tapsTable[indexPath.row].black_die)
+//        }
+//
+//// Clear
+//        if tapsTable[indexPath.row].clear == true
+//        {
+//            cell.clearLabel.isHidden  = false
+//            cell.clearLabel.text      = "Clear"
+//        }
         
 // Date and Time go on every entry
         cell.dayLabel.text   = tapsTable[indexPath.row].tap_day

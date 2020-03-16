@@ -16,6 +16,7 @@ class ARoll: NSObject
     var white_die_2: Int
     var split_die: Int
     var black_die: Int
+    var blue_die: Int
     var clear: Bool
     var tap_date: Date
     var tap_day: String
@@ -29,9 +30,22 @@ class ARoll: NSObject
         white_die_2  = 0
         split_die    = 0
         black_die    = 0
+        blue_die     = 0
         clear        = false
         tap_date     = Date()
         tap_day      = ""
         tap_time     = ""
+    }
+    
+    func clear_numbers()
+    {
+        red_die_1   = 0
+        red_die_2   = 0
+        white_die_1 = 0
+        white_die_2 = 0
+        black_die   = 0
+        blue_die    = 0
+        split_die   = 0
+        clear       = false
     }
 }

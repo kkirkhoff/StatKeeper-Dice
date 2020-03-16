@@ -191,8 +191,9 @@ class SettingsViewController: UIViewController
     {
         splitLabel.isEnabled   = false
         splitSetting.isEnabled = false
-
+        
         game = sender.selectedSegmentIndex
+
         if game == 0
         {
             showSetting.isEnabled = true

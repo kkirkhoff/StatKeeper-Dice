@@ -37,6 +37,7 @@ class TrendsViewController: UIViewController
     var whiteTArray = [Int](repeating: 0, count: 13)  // 2 Dice 2-12
     var splitArray  = [Int](repeating: 0, count: 21)  // Die 1-20
     var blackArray  = [Int](repeating: 0, count: 7 )  // Die 1-6
+    var blueArray   = [Int](repeating: 0, count: 10 ) // Die 0-9
     var filterTotal = -1                              // Will be -1 (all), 9, 19, or 29 (because numbering starts at 0)
     
     var tapsCD     = [NSManagedObject]()              // CoreData array of Tap
