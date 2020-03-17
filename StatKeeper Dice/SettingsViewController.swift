@@ -55,6 +55,24 @@ class SettingsViewController: UIViewController
         splitSetting.selectedSegmentIndex  = 0
         
         processUserDefaults()
+        
+        // Show Split selection if Strat-O-Matic Basketball is selected
+        if game == 0 && sport == 2
+        {
+            showSetting.isEnabled = true
+            showLabel.isEnabled   = true
+            
+            if sport == 2    // Allow Split usage if Strat-O-Matic Basketball
+            {
+                splitLabel.isEnabled   = true
+                splitSetting.isEnabled = true
+            }
+        }
+        else
+        {
+            splitLabel.isEnabled   = false
+            splitSetting.isEnabled = false
+        }
     }
 
     // This will save the initial defaults on the Settings page.

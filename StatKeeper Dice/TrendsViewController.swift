@@ -12,15 +12,13 @@ import Charts
 
 class TrendsViewController: UIViewController
 {
-    @IBOutlet weak var whiteChart: BarChartView!
-    @IBOutlet weak var redChart: BarChartView!
-    @IBOutlet weak var splitChart: BarChartView!
-    @IBOutlet weak var blackChart: BarChartView!
+    @IBOutlet weak var topChart: BarChartView!
+    @IBOutlet weak var middleChart: BarChartView!
+    @IBOutlet weak var bottomChart: BarChartView!
     @IBOutlet weak var filterValue: UISegmentedControl!
-    @IBOutlet weak var whiteChartTop: NSLayoutConstraint!
-    @IBOutlet weak var redChartTop: NSLayoutConstraint!
-    @IBOutlet weak var blackChartTop: NSLayoutConstraint!
-    @IBOutlet weak var splitChartTop: NSLayoutConstraint!
+    @IBOutlet weak var topChartConstraint: NSLayoutConstraint!
+    @IBOutlet weak var middleChartConstraint: NSLayoutConstraint!
+    @IBOutlet weak var bottomChartConstraint: NSLayoutConstraint!
 
     var tapsMaster = [ARoll]()                      // Array of all taps
 
@@ -32,7 +30,7 @@ class TrendsViewController: UIViewController
     var red1Array   = [Int](repeating: 0, count: 51)  // Die 1-50
     var red2Array   = [Int](repeating: 0, count: 7 )  // Die 1-6
     var redTArray   = [Int](repeating: 0, count: 13)  // 2 Dice 2-12
-    var white1Array = [Int](repeating: 0, count: 7 )  // Die 1-6
+    var white1Array = [Int](repeating: 0, count: 10)  // Die 0-9
     var white2Array = [Int](repeating: 0, count: 7 )  // Die 1-6
     var whiteTArray = [Int](repeating: 0, count: 13)  // 2 Dice 2-12
     var splitArray  = [Int](repeating: 0, count: 21)  // Die 1-20
@@ -69,6 +67,7 @@ class TrendsViewController: UIViewController
         redChartUpdate()
         splitChartUpdate()
         blackChartUpdate()
+        blueChartUpdate()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -92,6 +91,7 @@ class TrendsViewController: UIViewController
         redChartUpdate()
         splitChartUpdate()
         blackChartUpdate()
+        blueChartUpdate()
     }
     
 
@@ -129,6 +129,7 @@ class TrendsViewController: UIViewController
             tap.white_die_2 = item.value(forKey: "white_die_2") as! Int
             tap.split_die   = item.value(forKey: "split_die") as! Int
             tap.black_die   = item.value(forKey: "black_die") as! Int
+            tap.blue_die    = item.value(forKey: "blue_die") as! Int
             tap.clear       = item.value(forKey: "clear") as! Bool
             tap.tap_date    = item.value(forKey: "date") as! Date
             
@@ -140,7 +141,7 @@ class TrendsViewController: UIViewController
             dateFormatter.amSymbol = "am"
             dateFormatter.pmSymbol = "pm"
             tap.tap_time = dateFormatter.string(from: tap.tap_date)
-            
+
             tapsMaster.append(tap)
         }
         
@@ -148,7 +149,7 @@ class TrendsViewController: UIViewController
 
 // MARK: - Helper Functions
     
-    // Split taps into red, white, black, and split
+    // Split taps into red, white, blue, black, and split
     func SeparateTaps()
     {
         // Clear the arrays
@@ -172,7 +173,11 @@ class TrendsViewController: UIViewController
         {
             splitArray[i] = 0
         }
-        
+        for i in 0...9
+        {
+            blueArray[i] = 0
+        }
+
         for tap in tapsMaster
         {
             // Red
@@ -246,6 +251,16 @@ class TrendsViewController: UIViewController
                     blackArray[0] += 1
                 }
             }
+            
+            // Blue
+            if (tap.blue_die > 0)
+            {
+                if (filterTotal == -1 || filterTotal > 0 && blueArray[0] <= filterTotal)
+                {
+                    blueArray[tap.blue_die] += 1
+                    blueArray[0] += 1
+                }
+            }
         }
     }
 
@@ -272,75 +287,70 @@ class TrendsViewController: UIViewController
 
     func setupScreen()
     {
-        let constraint1:CGFloat = 28.0
-        let constraint2:CGFloat = 160.0
-        let constraint3:CGFloat = 292.0
-
         // Turn everything off
-        whiteChart.isHidden = true
-        redChart.isHidden   = true
-        splitChart.isHidden = true
-        blackChart.isHidden = true
+        topChart.isHidden    = true
+        middleChart.isHidden = true
+        bottomChart.isHidden = true
         
         // Strat-O-Matic
         if (game == 0)
         {
+            // Baseball - White, Red, Split
             if sport == 0
             {
-                whiteChart.isHidden  = false
-                redChart.isHidden    = false
-                splitChart.isHidden  = false
-                whiteChartTop.constant = constraint1
-                redChartTop.constant   = constraint2
-                splitChartTop.constant = constraint3
+                topChart.isHidden    = false
+                middleChart.isHidden = false
+                bottomChart.isHidden = false
             }
             
+            // Football - White, Red, Black
             if sport == 1
             {
-                whiteChart.isHidden    = false
-                redChart.isHidden      = false
-                blackChart.isHidden    = false
-                whiteChartTop.constant = constraint1
-                redChartTop.constant   = constraint2
-                blackChartTop.constant = constraint3
+                topChart.isHidden    = false
+                middleChart.isHidden = false
+                bottomChart.isHidden = false
             }
+            
+            // Basketball - White, Black, Split
             if sport == 2
             {
-                whiteChart.isHidden    = false
-                blackChart.isHidden    = false
-                whiteChartTop.constant = constraint1
-                blackChartTop.constant = constraint2
+                topChart.isHidden    = false
+                middleChart.isHidden    = false
 
                 if (split == 1)
                 {
-                    splitChart.isHidden    = false
-                    splitChartTop.constant = constraint3
+                    bottomChart.isHidden    = false
                 }
                     
             }
             
+            // Hockey - White
             if sport == 3
             {
-                whiteChart.isHidden    = false
-                whiteChartTop.constant = constraint1
+                topChart.isHidden    = false
             }
         }
         
         // APBA
         if (game == 1)
         {
-            whiteChart.isHidden    = false
-            redChart.isHidden      = false
-            whiteChartTop.constant = constraint1
-            redChartTop.constant   = constraint2
+            topChart.isHidden    = false
+            middleChart.isHidden = false
         }
 
         
         // BallPark & Dynasty League
-        if (game == 2 && game == 3)
+        if (game == 2)
         {
-            redChart.isHidden   = false
-            redChartTop.constant = constraint1
+            topChart.isHidden    = false
+        }
+        
+        // Dynasty League
+        if (game == 3)
+        {
+            topChart.isHidden    = false
+            middleChart.isHidden = false
+            bottomChart.isHidden = false
         }
 
     }
@@ -361,6 +371,14 @@ class TrendsViewController: UIViewController
             lowerLimit = 2
             upperLimit = 12
         }
+
+        // Dynasty League
+        if (game == 3)
+        {
+            lowerLimit = 0
+            upperLimit = 9
+        }
+
         for i in lowerLimit...upperLimit
         {
             var dataEntry: BarChartDataEntry
@@ -378,39 +396,11 @@ class TrendsViewController: UIViewController
             }
             dataEntries.append(dataEntry)
         }
+        
         let dataSet = BarChartDataSet(entries: dataEntries, label: label)
-
-        let data        = BarChartData(dataSets: [dataSet])
-        whiteChart.data = data
-        whiteChart.data?.setDrawValues(false)
+        let data    = BarChartData(dataSets: [dataSet])
         
-        whiteChart.chartDescription?.text      = ""
-        whiteChart.backgroundColor             = UIColor.black
-        whiteChart.doubleTapToZoomEnabled      = false
-        whiteChart.highlightPerTapEnabled      = false
-        whiteChart.highlightPerDragEnabled     = false
-        
-        whiteChart.legend.textColor            = UIColor.white
-        
-        whiteChart.xAxis.labelTextColor        = UIColor.white
-        whiteChart.xAxis.gridColor             = UIColor.white
-        whiteChart.xAxis.labelPosition         = .bottom
-        whiteChart.xAxis.axisLineColor         = UIColor.white
-
-        whiteChart.rightAxis.gridColor         = UIColor.white
-        
-        whiteChart.leftAxis.axisLineColor        = UIColor.white
-        whiteChart.leftAxis.labelTextColor       = UIColor.white
-        whiteChart.leftAxis.drawGridLinesEnabled = false
-        whiteChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
-        whiteChart.leftAxis.granularity          = 1.0
-        whiteChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
-
-        // All other additions to this function go here
-        dataSet.colors = [UIColor.white]
-
-        // This must stay at the end of the function
-        whiteChart.notifyDataSetChanged()
+        setupChart (topChart, data, dataSet, UIColor.white)
     }
 
     func redChartUpdate ()
@@ -420,19 +410,28 @@ class TrendsViewController: UIViewController
         var lowerLimit  = 1
         var label       = "Red (" + String(red1Array[0]) + ")"
 
+        // Strat-O-Matic baseball and football
         if (game == 0 && sport == 0 || game == 0 && sport == 1)
         {
             label = "Red Combined (" + String(redTArray[0]) + ")"
             lowerLimit = 2
             upperLimit = 12
         }
-
+        
+        // Ball Park
         if (game == 2)
         {
             lowerLimit = 1
             upperLimit = 50
         }
         
+        // Dynasty League
+        if (game == 3)
+        {
+            lowerLimit = 0
+            upperLimit = 9
+        }
+
         for i in lowerLimit...upperLimit
         {
             var dataEntry: BarChartDataEntry
@@ -451,37 +450,19 @@ class TrendsViewController: UIViewController
         
         let dataSet   = BarChartDataSet(entries: dataEntries, label: label)
         let data      = BarChartData(dataSets: [dataSet])
-        redChart.data = data
-        redChart.data?.setDrawValues(false)
-        redChart.backgroundColor             = UIColor.black
-        redChart.doubleTapToZoomEnabled      = false
-        redChart.highlightPerTapEnabled      = false
-        redChart.highlightPerDragEnabled     = false
-        redChart.chartDescription?.text      = ""
 
-        redChart.legend.textColor            = UIColor.white
-        
-        redChart.xAxis.labelTextColor        = UIColor.white
-        redChart.xAxis.gridColor             = UIColor.white
-        redChart.xAxis.labelPosition         = .bottom
-        redChart.xAxis.axisLineColor         = UIColor.white
-        
-        redChart.rightAxis.gridColor         = UIColor.white
-        
-        redChart.leftAxis.axisLineColor        = UIColor.white
-        redChart.leftAxis.labelTextColor       = UIColor.white
-        redChart.leftAxis.drawGridLinesEnabled = false
-        redChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
-        redChart.leftAxis.granularity          = 1.0
-        redChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
+        // Ball Park it's the top chart
+        if game == 2
+        {
+            setupChart (topChart, data, dataSet, UIColor.red)
+        }
+        else
+        {
+            setupChart (middleChart, data, dataSet, UIColor.red)
+        }
 
-        // All other additions to this function go here
-        dataSet.colors = [UIColor.red]
-        
-        // This must stay at the end of the function
-        redChart.notifyDataSetChanged()
     }
-
+    
     func splitChartUpdate ()
     {
         var dataEntries = [ChartDataEntry]()
@@ -494,36 +475,32 @@ class TrendsViewController: UIViewController
         }
         let dataSet     = BarChartDataSet(entries: dataEntries, label: label)
         let data        = BarChartData(dataSets: [dataSet])
-        splitChart.data = data
-        splitChart.data?.setDrawValues(false)
-        
-        splitChart.backgroundColor             = UIColor.black
-        splitChart.doubleTapToZoomEnabled      = false
-        splitChart.highlightPerTapEnabled      = false
-        splitChart.highlightPerDragEnabled     = false
-        splitChart.chartDescription?.text      = ""
 
-        splitChart.legend.textColor            = UIColor.white
-        
-        splitChart.xAxis.labelTextColor        = UIColor.white
-        splitChart.xAxis.gridColor             = UIColor.white
-        splitChart.xAxis.labelPosition         = .bottom
-        splitChart.xAxis.axisLineColor         = UIColor.white
-        
-        splitChart.rightAxis.gridColor         = UIColor.white
-        
-        splitChart.leftAxis.axisLineColor        = UIColor.white
-        splitChart.leftAxis.labelTextColor       = UIColor.white
-        splitChart.leftAxis.drawGridLinesEnabled = false
-        splitChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
-        splitChart.leftAxis.granularity          = 1.0
-        splitChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
+        // If Strat-O-Matic baseball or basketball and using Split
+        if ((game == 0 && sport == 0) || (game == 0 && sport == 2 && split == 1))
+        {
+            setupChart (bottomChart, data, dataSet, UIColor.green)
 
-        // All other additions to this function go here
-        dataSet.colors = [UIColor.green]
-        
-        // This must stay at the end of the function
-        splitChart.notifyDataSetChanged()
+            dataSet.colors = [UIColor.green]
+        }
+    }
+    
+    func blueChartUpdate ()
+    {
+        var dataEntries = [ChartDataEntry]()
+        let label = "Blue (" + String(splitArray[0]) + ")"
+
+        for i in 0...9
+        {
+            let dataEntry = BarChartDataEntry(x: Double(i), y: Double(blueArray[i]))
+            dataEntries.append(dataEntry)
+        }
+        let dataSet     = BarChartDataSet(entries: dataEntries, label: label)
+        let data        = BarChartData(dataSets: [dataSet])
+
+        setupChart (bottomChart, data, dataSet, UIColor.blue)
+
+        dataSet.colors = [UIColor.blue]
     }
 
     func blackChartUpdate ()
@@ -538,36 +515,52 @@ class TrendsViewController: UIViewController
         }
         let dataSet     = BarChartDataSet(entries: dataEntries, label: label)
         let data        = BarChartData(dataSets: [dataSet])
-        blackChart.data = data
-        blackChart.data?.setDrawValues(false)
         
-        blackChart.backgroundColor             = UIColor.black
-        blackChart.doubleTapToZoomEnabled      = false
-        blackChart.highlightPerTapEnabled      = false
-        blackChart.highlightPerDragEnabled     = false
-        blackChart.chartDescription?.text      = ""
-
-        blackChart.legend.textColor            = UIColor.white
+        // Start-O-Matic football
+        if game == 0 && sport == 1
+        {
+            setupChart (bottomChart, data, dataSet, UIColor.white)
+        }
         
-        blackChart.xAxis.labelTextColor        = UIColor.white
-        blackChart.xAxis.gridColor             = UIColor.white
-        blackChart.xAxis.labelPosition         = .bottom
-        blackChart.xAxis.axisLineColor         = UIColor.white
-        
-        blackChart.rightAxis.gridColor         = UIColor.white
-        
-        blackChart.leftAxis.axisLineColor        = UIColor.white
-        blackChart.leftAxis.labelTextColor       = UIColor.white
-        blackChart.leftAxis.drawGridLinesEnabled = false
-        blackChart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
-        blackChart.leftAxis.granularity          = 1.0
-        blackChart.leftAxis.axisMinimum          = 0.0            // No values less than 0
-
-        // All other additions to this function go here
-        dataSet.colors = [UIColor.white]
-        
-        // This must stay at the end of the function
-        blackChart.notifyDataSetChanged()
+        // Start-O-Matic basketball
+        if game == 0 && sport == 2
+        {
+            setupChart (middleChart, data, dataSet, UIColor.white)
+        }
     }
 
+    func setupChart(_ chart: BarChartView, _ data: BarChartData, _ dataset: BarChartDataSet, _ color: UIColor)
+    {
+        chart.data = data
+        chart.data?.setDrawValues(false)
+
+        chart.backgroundColor               = UIColor.black
+        chart.doubleTapToZoomEnabled        = false
+        chart.highlightPerTapEnabled        = false
+        chart.highlightPerDragEnabled       = false
+        chart.chartDescription?.text        = ""
+
+        chart.legend.textColor              = UIColor.white
+        
+        chart.xAxis.labelTextColor          = UIColor.white
+        chart.xAxis.gridColor               = UIColor.white
+        chart.xAxis.labelPosition           = .bottom
+        chart.xAxis.axisLineColor           = UIColor.white
+        
+        chart.rightAxis.gridColor           = UIColor.white
+        
+        chart.leftAxis.axisLineColor        = UIColor.white
+        chart.leftAxis.labelTextColor       = UIColor.white
+        chart.leftAxis.drawGridLinesEnabled = false
+        chart.leftAxis.granularityEnabled   = true           // No fractions on Y axis
+        chart.leftAxis.granularity          = 1.0
+        chart.leftAxis.axisMinimum          = 0.0            // No values less than 0
+
+        // All other additions to this function go here
+        dataset.colors = [color]
+        
+        // This must stay at the end of the function
+        chart.notifyDataSetChanged()
+
+    }
 }

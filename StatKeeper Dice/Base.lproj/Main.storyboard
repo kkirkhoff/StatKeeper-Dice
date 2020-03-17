@@ -336,21 +336,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VM8-yw-SP0" userLabel="Red Chart" customClass="BarChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="VM8-yw-SP0" userLabel="Middle Chart" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="222" width="288" height="130"/>
                                 <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="130" id="NAC-Rw-hTD"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uqh-9F-Gcx" customClass="BarChartView" customModule="Charts">
-                                <rect key="frame" x="16" y="354" width="288" height="130"/>
-                                <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="130" id="6vO-HH-aFM"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4C-Z7-j1O" customClass="BarChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="k4C-Z7-j1O" userLabel="Bottom Chart" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="354" width="288" height="130"/>
                                 <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -375,7 +368,7 @@
                                     <action selector="filterSelected:" destination="NZz-pA-KWn" eventType="valueChanged" id="j5P-1V-CC5"/>
                                 </connections>
                             </segmentedControl>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehb-xI-mL0" userLabel="White Chart" customClass="BarChartView" customModule="Charts">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ehb-xI-mL0" userLabel="Top Chart" customClass="BarChartView" customModule="Charts">
                                 <rect key="frame" x="16" y="90" width="288" height="130"/>
                                 <color key="backgroundColor" red="0.92549639939999995" green="0.92547899479999995" blue="0.9254907966" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
@@ -386,10 +379,8 @@
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="5mC-78-1J0" firstAttribute="trailing" secondItem="ehb-xI-mL0" secondAttribute="trailing" constant="16" id="2YD-Th-sQt"/>
-                            <constraint firstItem="Uqh-9F-Gcx" firstAttribute="top" secondItem="chc-h3-sJE" secondAttribute="bottom" constant="292" id="5ku-xz-Pfv"/>
                             <constraint firstItem="5mC-78-1J0" firstAttribute="trailing" secondItem="chc-h3-sJE" secondAttribute="trailing" constant="16" id="9aj-ZG-0oT"/>
                             <constraint firstItem="VM8-yw-SP0" firstAttribute="top" secondItem="chc-h3-sJE" secondAttribute="bottom" constant="160" id="ESC-yC-A81"/>
-                            <constraint firstItem="Uqh-9F-Gcx" firstAttribute="leading" secondItem="5mC-78-1J0" secondAttribute="leading" constant="16" id="G1d-J2-zzM"/>
                             <constraint firstItem="VM8-yw-SP0" firstAttribute="leading" secondItem="5mC-78-1J0" secondAttribute="leading" constant="16" id="PSG-VD-BKV"/>
                             <constraint firstItem="chc-h3-sJE" firstAttribute="top" secondItem="5mC-78-1J0" secondAttribute="top" constant="31" id="Qqq-ue-flL"/>
                             <constraint firstItem="ehb-xI-mL0" firstAttribute="top" secondItem="chc-h3-sJE" secondAttribute="bottom" constant="28" id="Rsa-GD-lNG"/>
@@ -399,21 +390,18 @@
                             <constraint firstItem="chc-h3-sJE" firstAttribute="leading" secondItem="5mC-78-1J0" secondAttribute="leading" constant="16" id="afG-k7-5M9"/>
                             <constraint firstItem="ehb-xI-mL0" firstAttribute="leading" secondItem="5mC-78-1J0" secondAttribute="leading" constant="16" id="dla-vM-vaq"/>
                             <constraint firstItem="5mC-78-1J0" firstAttribute="trailing" secondItem="k4C-Z7-j1O" secondAttribute="trailing" constant="16" id="fLf-fq-0Eu"/>
-                            <constraint firstItem="5mC-78-1J0" firstAttribute="trailing" secondItem="Uqh-9F-Gcx" secondAttribute="trailing" constant="16" id="oco-Av-C5c"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="5mC-78-1J0"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Trends" image="trend" selectedImage="trend" id="r99-Jn-OU3"/>
                     <connections>
-                        <outlet property="blackChart" destination="k4C-Z7-j1O" id="TrY-2H-YKA"/>
-                        <outlet property="blackChartTop" destination="ZLR-QI-bNm" id="Hsl-SP-COq"/>
+                        <outlet property="bottomChart" destination="k4C-Z7-j1O" id="qem-sd-Hzx"/>
+                        <outlet property="bottomChartConstraint" destination="ZLR-QI-bNm" id="smM-Xj-kGx"/>
                         <outlet property="filterValue" destination="chc-h3-sJE" id="Rpz-vr-rvZ"/>
-                        <outlet property="redChart" destination="VM8-yw-SP0" id="EiG-WJ-OGM"/>
-                        <outlet property="redChartTop" destination="ESC-yC-A81" id="5ed-LL-ChN"/>
-                        <outlet property="splitChart" destination="Uqh-9F-Gcx" id="7pC-RF-3gR"/>
-                        <outlet property="splitChartTop" destination="5ku-xz-Pfv" id="3U8-cx-jmJ"/>
-                        <outlet property="whiteChart" destination="ehb-xI-mL0" id="WrE-Cl-imm"/>
-                        <outlet property="whiteChartTop" destination="Rsa-GD-lNG" id="mav-M5-aq9"/>
+                        <outlet property="middleChart" destination="VM8-yw-SP0" id="5rP-lF-wQw"/>
+                        <outlet property="middleChartConstraint" destination="ESC-yC-A81" id="Ob5-uL-vON"/>
+                        <outlet property="topChart" destination="ehb-xI-mL0" id="k1N-E4-ayN"/>
+                        <outlet property="topChartConstraint" destination="Rsa-GD-lNG" id="dVs-S3-GFU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="20b-YI-wCy" userLabel="First Responder" sceneMemberID="firstResponder"/>
