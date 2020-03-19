@@ -327,10 +327,10 @@ class RollViewController: UIViewController
                 ATap.split_die   = 0
                 ATap.clear       = false
 
-                prev_red1   = red_die_1
-                prev_red2   = red_die_2
-                prev_white1 = white_die_1
-                prev_blue   = blue_die
+                prev_red1      = red_die_1
+                prev_red2      = red_die_2
+                prev_white1    = white_die_1
+                prev_red_value = red_value
             }
             
             // Basketball or hockey, and show each white die...
@@ -404,7 +404,7 @@ class RollViewController: UIViewController
             ATap.clear       = false
 
             prev_white1 = white_die_1
-            prev_white2 = white_die_2
+            prev_red1   = red_die_1
         }
 
         saveTheData()
@@ -485,7 +485,7 @@ class RollViewController: UIViewController
         ATap.split_die   = 0
         ATap.clear       = false
 
-        prev_blue         = blue_die
+        prev_blue        = blue_die
 
         blueDieTop.constant = constraint3DataTop
         
