@@ -63,11 +63,7 @@ class TrendsViewController: UIViewController
         RetrieveTapsCD()
         SeparateTaps()
         
-        whiteChartUpdate()
-        redChartUpdate()
-        splitChartUpdate()
-        blackChartUpdate()
-        blueChartUpdate()
+        updateCharts()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle
@@ -87,11 +83,7 @@ class TrendsViewController: UIViewController
         
         SeparateTaps()
 
-        whiteChartUpdate()
-        redChartUpdate()
-        splitChartUpdate()
-        blackChartUpdate()
-        blueChartUpdate()
+        updateCharts()
     }
     
 
@@ -357,6 +349,55 @@ class TrendsViewController: UIViewController
 
     
 // MARK: - Chart creation Functions
+
+    
+    func updateCharts()
+    {
+        switch game
+        {
+        case 0:     // Strat-O-Matic
+            switch sport
+            {
+            case 0:      // Baseball
+                whiteChartUpdate()
+                redChartUpdate()
+                splitChartUpdate()
+                break;
+            case 1:      // Football
+                whiteChartUpdate()
+                redChartUpdate()
+                blackChartUpdate()
+                break;
+            case 2:      // Basketball
+                whiteChartUpdate()
+                blackChartUpdate()
+                if (split == 1)
+                {
+                    splitChartUpdate()
+                }
+                break;
+            case 3:      // Hockey
+                whiteChartUpdate()
+                break;
+                default:
+                    break;
+            }
+        case 1:     // APBA
+            whiteChartUpdate()
+            redChartUpdate()
+            break;
+        case 2:     // BallPark
+            redChartUpdate()
+            break;
+        case 3:     // Dynasty League
+            whiteChartUpdate()
+            redChartUpdate()
+            blueChartUpdate()
+            break;
+        default:
+            break;
+        }
+    }
 
     func whiteChartUpdate ()
     {
